@@ -40,10 +40,10 @@ class OwnerTest implements ModelTest {
         System.out.println(value);
     }
 
-    @DisplayName("Value Source Test 2")
+    @DisplayName("Display name source test")
     @ParameterizedTest(name = "{displayName} - [{index}] {arguments}")
     @ValueSource(strings = {"Maja", "JUnit", "Test"})
-    void testValueSource2(String value) {
+    void displayNameSourceTest(String value) {
         System.out.println(value);
     }
 
