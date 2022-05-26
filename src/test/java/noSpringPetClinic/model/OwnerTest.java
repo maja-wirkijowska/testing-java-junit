@@ -1,5 +1,6 @@
 package noSpringPetClinic.model;
 
+import noSpringPetClinic.CustomArgsProvider;
 import noSpringPetClinic.ModelTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -80,5 +81,12 @@ class OwnerTest implements ModelTest {
         return Stream.of(Arguments.of("Fl", 1, 4),
                          Arguments.of("CT", 2, 5),
                          Arguments.of("AZ", 3, 6));
+    }
+
+    @DisplayName("custom provider test - comma seperated values")
+    @ParameterizedTest(name = "{displayName} - [{index}] {arguments}")
+    @ArgumentsSource(CustomArgsProvider.class)
+    void fromCustomProviderTest(String stateName, int value1, int value2) {
+        System.out.println(stateName + " = " + value1 + ":" + value2);
     }
 }
