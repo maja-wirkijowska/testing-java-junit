@@ -1,6 +1,7 @@
 package noSpringPetClinic.model;
 
 import noSpringPetClinic.ModelTest;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,6 +36,13 @@ class OwnerTest implements ModelTest {
     @ParameterizedTest
     @ValueSource(strings = {"Maja", "JUnit", "Test"})
     void testValueSource(String value) {
+        System.out.println(value);
+    }
+
+    @DisplayName("Value Source Test 2")
+    @ParameterizedTest(name = "{displayName} - [{index}] {arguments}")
+    @ValueSource(strings = {"Maja", "JUnit", "Test"})
+    void testValueSource2(String value) {
         System.out.println(value);
     }
 }
