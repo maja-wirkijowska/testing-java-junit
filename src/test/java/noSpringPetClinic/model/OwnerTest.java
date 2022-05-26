@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -59,6 +60,13 @@ class OwnerTest implements ModelTest {
     @ParameterizedTest(name = "{displayName} - [{index}] {arguments}")
     @CsvSource({"FL, 1, 1", "CT, 2, 2", "AZ, 3, 3"})
     void csvInputTest(String stateName, int value1, int value2) {
+        System.out.println(stateName + " = " + value1 + ":" + value2);
+    }
+
+    @DisplayName("CSV FILE input test - comma seperated values")
+    @ParameterizedTest(name = "{displayName} - [{index}] {arguments}")
+    @CsvFileSource(resources = "/input.csv", numLinesToSkip = 1)
+    void csvFileInputTest(String stateName, int value1, int value2) {
         System.out.println(stateName + " = " + value1 + ":" + value2);
     }
 }
