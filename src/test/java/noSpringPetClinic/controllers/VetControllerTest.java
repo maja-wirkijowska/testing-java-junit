@@ -1,5 +1,6 @@
 package noSpringPetClinic.controllers;
 
+import noSpringPetClinic.ControllerTest;
 import noSpringPetClinic.fauxspring.Model;
 import noSpringPetClinic.fauxspring.ModelMapImpl;
 import noSpringPetClinic.model.Vet;
@@ -15,8 +16,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Tag("controller")
-class VetControllerTest {
+class VetControllerTest implements ControllerTest {
 
     VetService vetService;
     SpecialtyService specialtyService;
