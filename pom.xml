@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>mw</groupId>
+    <artifactId>testing-java-junit</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>testing-java-junit</name>
+    <description>testing-java-junit</description>
+
+    <!--PROPERTIES-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <junit-platform.version>5.8.2</junit-platform.version>
+    </properties>
+
+    <!--DEPENDENCIES-->
+    <dependencies>
+        <!--PROJECT-LOMBOK-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <optional>true</optional>
+        </dependency>
+        <!--JAVAX VALIDATION API-->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
+        <!--APACHE COMMONS LANG3-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+        <!--JUNIT JUPITER API-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit-platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!--JUNIT JUPITER ENGINE-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!--PLUGINS-->
+        <plugins>
+            <!--MAVEN COMPILER-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+            </plugin>
+            <!--MAVEN SUREFIRE-->
+            <plugin> <!--Unit Tests-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <argLine>
+                        --illegal-access=permit
+                    </argLine>
+                </configuration>
+            </plugin>
+            <!--MAVEN FAILSAFE-->
+            <plugin> <!--Integration Tests-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <argLine>
+                        --illegal-access=permit
+                    </argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
