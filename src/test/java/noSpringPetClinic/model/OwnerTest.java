@@ -2,6 +2,8 @@ package noSpringPetClinic.model;
 
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OwnerTest {
@@ -12,6 +14,7 @@ class OwnerTest {
         owner.setCity("Key West");
         owner.setTelephone("1231231234");
 
+        // JUnit
         assertAll("Properties Test",
                 () -> assertAll("Person Properties",
                             () -> assertEquals("Joe", owner.getFirstName(), "first name failed"),
@@ -20,5 +23,8 @@ class OwnerTest {
                             () -> assertEquals("Key West", owner.getCity()),
                             () -> assertEquals("1231231234", owner.getTelephone())
                 ));
+
+        // Hamcrest
+        assertThat(owner.getCity(), is("Key West"));
     }
 }
