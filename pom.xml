@@ -17,6 +17,8 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <junit-platform.version>5.8.2</junit-platform.version>
+        <maven-plugin.version>2.22.2</maven-plugin.version>
+        <mockito.version>4.5.1</mockito.version>
     </properties>
 
     <!--DEPENDENCIES-->
@@ -69,6 +71,20 @@
             <version>${junit-platform.version}</version>
             <scope>test</scope>
         </dependency>
+        <!--MOCKITO CORE-->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!--MOCKITO JUNIT JUPITER, integration between mockito and junit-->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -85,7 +101,7 @@
             <plugin> <!--Unit Tests-->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>${maven-plugin.version}</version>
                 <configuration>
                     <argLine>
                         --illegal-access=permit
@@ -99,7 +115,7 @@
             <plugin> <!--Integration Tests-->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>${maven-plugin.version}</version>
                 <configuration>
                     <argLine>
                         --illegal-access=permit
@@ -129,7 +145,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>${maven-plugin.version}</version>
             </plugin>
         </plugins>
     </reporting>
