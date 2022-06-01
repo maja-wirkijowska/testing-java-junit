@@ -25,6 +25,9 @@ class OwnerControllerTest {
     @Mock(lenient = true)
     static OwnerService ownerService;
 
+    @Mock
+    Model model;
+
     @InjectMocks
     OwnerController controller;
 
@@ -80,11 +83,15 @@ class OwnerControllerTest {
     void processFindFormWildCardStringFound() {
         //given
         Owner owner = new Owner(1L, "Joe", "FindMe");
+        InOrder inOrder = inOrder(ownerService, model);
         //when
-        String viewName = controller.processFindForm(owner, bindingResult, Mockito.mock(Model.class));
+        String viewName = controller.processFindForm(owner, bindingResult, model);
         //then
         assertThat("%FindMe%").isEqualToIgnoringCase(stringArgumentCaptor.getValue());
         assertThat("owners/ownersList").isEqualToIgnoringCase(viewName);
+        // inOrder asserts
+        inOrder.verify(ownerService).findAllByLastNameLike(anyString());
+        inOrder.verify(model).addAttribute(anyString(), anyList());
     }
 
     @Test
