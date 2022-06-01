@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,12 +40,15 @@ class SpecialitySDJpaServiceTest {
 
     @Test
     void findByIdBDDTest() {
+        // GIVEN
         Speciality speciality = new Speciality();
-        // BDD style
+        // WHEN
         given(specialtyRepository.findById(1L)).willReturn(Optional.of(speciality));
         Speciality foundSpecialty = service.findById(1L);
+        // THEN
         assertThat(foundSpecialty).isNotNull();
-        verify(specialtyRepository).findById(1L);
+        then(specialtyRepository).should().findById(anyLong());
+        then(specialtyRepository).shouldHaveNoMoreInteractions();
     }
 
     @Test
