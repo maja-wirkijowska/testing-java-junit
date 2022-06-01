@@ -43,15 +43,16 @@ class OwnerControllerTest {
                 .willAnswer(invocation -> {
                     List<Owner> owners = new ArrayList<>();
                     String name = invocation.getArgument(0);
-                    if (name.equals("%Buck%")) {
-                        owners.add(new Owner(1L, "Joe", "Buck"));
-                        return owners;
-                    } else if (name.equals("%NotFound%")) {
-                        return owners;
-                    } else if (name.equals("%FindMe%")) {
-                        owners.add(new Owner(1L, "Joe", "Buck"));
-                        owners.add(new Owner(2L, "Joe2", "Buck2"));
-                        return owners;
+                    switch (name) {
+                        case "%Buck%":
+                            owners.add(new Owner(1L, "Joe", "Buck"));
+                            return owners;
+                        case "%NotFound%":
+                            return owners;
+                        case "%FindMe%":
+                            owners.add(new Owner(1L, "Joe", "Buck"));
+                            owners.add(new Owner(2L, "Joe2", "Buck2"));
+                            return owners;
                     }
                     throw new RuntimeException("Invalid Argument");
                 });
@@ -66,6 +67,7 @@ class OwnerControllerTest {
         //then
         assertThat("%Buck%").isEqualToIgnoringCase(stringArgumentCaptor.getValue());
         assertThat("redirect:/owners/1").isEqualToIgnoringCase(viewName);
+        verifyNoInteractions(model);
     }
 
     @Test
@@ -74,9 +76,11 @@ class OwnerControllerTest {
         Owner owner = new Owner(1L, "Joe", "NotFound");
         //when
         String viewName = controller.processFindForm(owner, bindingResult, null);
+        //verifyNoMoreInteractions(ownerService);
         //then
         assertThat("%NotFound%").isEqualToIgnoringCase(stringArgumentCaptor.getValue());
         assertThat("owners/findOwners").isEqualToIgnoringCase(viewName);
+        verifyNoInteractions(model);
     }
 
     @Test
@@ -91,7 +95,8 @@ class OwnerControllerTest {
         assertThat("owners/ownersList").isEqualToIgnoringCase(viewName);
         // inOrder asserts
         inOrder.verify(ownerService).findAllByLastNameLike(anyString());
-        inOrder.verify(model).addAttribute(anyString(), anyList());
+        inOrder.verify(model, times(1)).addAttribute(anyString(), anyList());
+        verifyNoMoreInteractions(model);
     }
 
     @Test
