@@ -35,7 +35,7 @@ class SpecialitySDJpaServiceTest {
     }
 
     @Test
-    void findByTest() {
+    void findByIdTest() {
         // GIVEN
         Speciality speciality = new Speciality();
         // WHEN
@@ -43,7 +43,7 @@ class SpecialitySDJpaServiceTest {
         Speciality foundSpecialty = service.findById(1L);
         // THEN
         assertThat(foundSpecialty).isNotNull();
-        then(specialtyRepository).should().findById(anyLong());
+        then(specialtyRepository).should(timeout(100)).findById(anyLong());
         then(specialtyRepository).shouldHaveNoMoreInteractions();
     }
 
@@ -54,7 +54,7 @@ class SpecialitySDJpaServiceTest {
         service.deleteById(1L);
         service.deleteById(1L);
         // then
-        then(specialtyRepository).should(times(2)).deleteById(1L);
+        then(specialtyRepository).should(timeout(100).times(2)).deleteById(1L);
     }
 
     @Test
@@ -64,7 +64,7 @@ class SpecialitySDJpaServiceTest {
         service.deleteById(1L);
         service.deleteById(1L);
         //then
-        then(specialtyRepository).should(atLeastOnce()).deleteById(1L);
+        then(specialtyRepository).should(timeout(1000).atLeastOnce()).deleteById(1L);
         }
 
     @Test
@@ -74,6 +74,7 @@ class SpecialitySDJpaServiceTest {
         service.deleteById(1L);
         //then
         then(specialtyRepository).should(atMost(5)).deleteById(1L);
+        // atMost() does not seem to work if chained with timeout()
     }
 
     @Test
@@ -82,7 +83,7 @@ class SpecialitySDJpaServiceTest {
         service.deleteById(1L);
         service.deleteById(1L);
         //then
-        then(specialtyRepository).should(atLeastOnce()).deleteById(1L);
+        then(specialtyRepository).should(timeout(200).atLeastOnce()).deleteById(1L);
         then(specialtyRepository).should(never()).deleteById(5L);
     }
 
